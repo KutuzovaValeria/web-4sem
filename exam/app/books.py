@@ -187,12 +187,12 @@ def delete_book(book_id):
         return redirect(url_for('books'))
 
     try:
-        db.session.delete(book)
-        db.session.delete(image)
-        db.session.commit()
         os.remove(f'media/images/{image.file_name}')
         extension = image.file_name.split('.')[-1]
         os.remove(f'media/images/{image.id}.{extension}')
+        db.session.delete(book)
+        db.session.delete(image)
+        db.session.commit()
         flash('Книга успешно удалена', 'success')
     except:
         db.session.rollback()
