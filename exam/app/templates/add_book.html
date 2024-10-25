@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% from 'form.html' import book_form %}
+    {{ book_form(form_title='Создание книги', form_action=url_for('books.create_book'), genres=genres) }}
+{% endblock %}

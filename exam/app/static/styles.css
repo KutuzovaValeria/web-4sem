@@ -1,0 +1,39 @@
+.logo {
+    max-width: 250px;
+}
+
+.profile {
+    max-width: 100px;
+}
+
+.background-preview {
+    border: 5px dashed white;
+    flex-grow: 1;
+}
+
+.title-area {
+    background-color: rgb(71, 71, 71);
+    background-position: center;
+    background-size: cover;
+    color: white;
+}
+
+.book-cover {
+    width: 400px;
+    height: 600px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.row:hover {
+    cursor: pointer;
+    border: 2px solid black !important;
+}
+
+.course-logo {
+    width: 200px;
+    height: 200px;
+    background-position: center;
+    background-size: cover;
+}

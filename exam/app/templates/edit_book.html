@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% from 'form.html' import book_form %}
+
+{% block content %}
+  <h2 class="my-3">Редактирование книги</h2>
+  {{ book_form(form, url_for('books.edit_book', book_id=book.id), genres, book=book, form_type='edit') }}
+{% endblock %}
