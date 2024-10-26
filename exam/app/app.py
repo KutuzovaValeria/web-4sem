@@ -23,12 +23,12 @@ init_login_manager(app)
 
 from models import Book, Image, Genre, Review
 from tools import BookFilter
-PER_PAGE = 5
+PER_PAGE = 5 #кол-во элементов на странице
 
 def search_params():
     return {
         'name': request.args.get('name'),
-        'genre_ids': request.args.getlist('gennre_ids'),
+        'genre_ids': request.args.getlist('genre_ids'),
     }
 
 @app.route('/')
@@ -53,17 +53,17 @@ def index():
     pagination = books_query.paginate(page=page, per_page=PER_PAGE, error_out=False)
     books = pagination.items
     
-    # Получение уникальных значений года для поля выбора
-    years = db.session.query(Book.year.distinct()).order_by(Book.year).all()
-    years = [str(year[0]) for year in years]
+    
+    years = db.session.query(Book.year.distinct()).order_by(Book.year).all() #извлекаем годы из бд, сортируем по возрастанию
+    years = [str(year[0]) for year in years] #список лет в формате строк
     
     # Подсчет отзывов и рейтингов для каждой книги
     reviews = []
     for book in books:
-        reviews_list = Review.query.filter_by(book_id=book.id).all()
+        reviews_list = Review.query.filter_by(book_id=book.id).all() #извлекаем отз. по id
         reviews_count = len(reviews_list)
         rating_sum = sum(review.rating for review in reviews_list)
-        average_rating = rating_sum / reviews_count if reviews_count > 0 else 0
+        average_rating = rating_sum / reviews_count if reviews_count > 0 else 0 # вычистяет средний рейтинг
         reviews.append([reviews_count, average_rating])
     
     # Список жанров и изображений для отображения

@@ -39,7 +39,7 @@ def add_book():
 @permission_check("create")
 def create_book():
     try:
-        f = request.files.get('background_img')
+        f = request.files.get('background_img')  # обработка изображения
         if f and f.filename:
             img = ImageSaver(f).save()
             image_id = img.id
@@ -54,12 +54,12 @@ def create_book():
         if genre_name:
             genre = Genre.query.filter_by(name=genre_name).first()
             if genre:
-                book_genre = BookGenre(book=book, genre=genre)
+                book_genre = BookGenre(book=book, genre=genre) # создание связи между жанром и книгой
                 db.session.add(book_genre)
 
         book = Book(**params(), id_image=image_id)
 
-        description = bleach.clean(request.form.get('description'))
+        description = bleach.clean(request.form.get('description')) #удаляет потенциально вредоносные HTML-теги и JavaScript
         book.description = description
 
         bleach.clean(book.description)
@@ -187,9 +187,9 @@ def delete_book(book_id):
         return redirect(url_for('books'))
 
     try:
-        os.remove(f'media/images/{image.file_name}')
+        #os.remove(f'media/images/{image.file_name}')
         extension = image.file_name.split('.')[-1]
-        os.remove(f'media/images/{image.id}.{extension}')
+        os.remove(f'media/images/{image.id}')
         db.session.delete(book)
         db.session.delete(image)
         db.session.commit()
